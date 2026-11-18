@@ -5,7 +5,7 @@ import {join} from 'node:path';
 const config=JSON.parse(await readFile('site.config.json','utf8'));
 const {products}=JSON.parse(await readFile('data/catalog.json','utf8'));
 const scenes=JSON.parse(await readFile('data/scenes.json','utf8'));
-const base='/'+String(config.basePath||'').split('/').filter(Boolean).join('/')+'/';
+const base='/'+String(process.env.SITE_BASE_PATH||config.basePath||'').split('/').filter(Boolean).join('/')+'/';
 const origin=(process.env.SITE_ORIGIN||config.origin).replace(/\/$/,'');
 const siteUrl=path=>origin+'/'+path.replace(/^\//,'');
 const siteFile=path=>join('dist',path.slice(base.length).split(/[?#]/)[0]);
@@ -41,8 +41,12 @@ async function checkHtml(html,path,indexable=true){
   }
 }
 
-assert.equal(base,'/MERKICKS/');
-assert.equal(origin,'https://diego-mercado14.github.io/MERKICKS');
+assert.equal(config.basePath,'/MERKICKS/');
+assert.equal(config.origin,'https://diego-mercado14.github.io/MERKICKS/');
+const [owner,repo]=process.env.GITHUB_REPOSITORY?.split('/')||['diego-mercado14','MERKICKS'];
+assert.equal(owner,'diego-mercado14');
+assert.equal(base,`/${repo}/`);
+assert.equal(origin,`https://${owner}.github.io/${repo}`);
 assert.equal(new URL(origin).pathname,base.slice(0,-1));
 assert.equal(new Set(products.map(p=>p.slug)).size,products.length);
 const home=await readFile('dist/index.html','utf8');
@@ -51,7 +55,7 @@ assert(home.includes(config.groupUrl));
 assert.equal(scenes.length,6);
 for(const scene of scenes){
   assert(products.find(p=>p.slug===scene.slug)?.featured);
-  assert(home.includes(`/MERKICKS/products/${scene.imageId}-1440.webp`));
+  assert(home.includes(`${base}products/${scene.imageId}-1440.webp`));
 }
 const imageIds=new Set();
 for(const product of products){

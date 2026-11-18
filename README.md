@@ -20,7 +20,7 @@ La URL pública es `https://diego-mercado14.github.io/MERKICKS/`. El workflow `.
 
 En **Settings → Pages → Build and deployment → Source**, usa **GitHub Actions**. No es necesario configurar una rama `gh-pages` ni publicar `dist/` en Git.
 
-`SITE_ORIGIN` está definido en el workflow con la URL pública prevista; `site.config.json` contiene la misma URL como valor local. El generador crea canonical URLs, metadatos Open Graph y `sitemap.xml` bajo `/MERKICKS/`.
+El workflow obtiene `SITE_ORIGIN` y `SITE_BASE_PATH` del nombre actual del repositorio. Así publica bajo `/ppp/` mientras el repositorio tenga ese nombre y bajo `/MERKICKS/` después de renombrarlo. `site.config.json` conserva la URL definitiva para el desarrollo local. El generador crea canonical URLs, metadatos Open Graph y `sitemap.xml` con la ruta activa.
 
 No publiques la carpeta `public/` directamente: contiene solo los recursos base. `npm run build` genera `dist/` con la portada, todas las fichas y los recursos.
 

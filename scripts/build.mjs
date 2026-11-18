@@ -1,7 +1,7 @@
 import {readFile,writeFile,mkdir,cp,copyFile,rm} from 'node:fs/promises';
 import {resolve,dirname} from 'node:path';
 const read=async p=>JSON.parse(await readFile(p,'utf8'));
-const config=await read('site.config.json');config.origin=(process.env.SITE_ORIGIN||config.origin||'').replace(/\/$/,'');const catalog=await read('data/catalog.json');const scenes=await read('data/scenes.json');
+const config=await read('site.config.json');config.origin=(process.env.SITE_ORIGIN||config.origin||'').replace(/\/$/,'');config.basePath=process.env.SITE_BASE_PATH||config.basePath;const catalog=await read('data/catalog.json');const scenes=await read('data/scenes.json');
 const base='/'+String(config.basePath||'').split('/').filter(Boolean).join('/');
 const P=path=>(base==='/'?'':base)+'/'+String(path).replace(/^\/+/, '');
 const U=path=>new URL(P(path),config.origin).href;

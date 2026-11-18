@@ -18,7 +18,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_ORIGIN: https://diego-mercado14.github.io/MERKICKS/
+      SITE_ORIGIN: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+      SITE_BASE_PATH: /${{ github.event.repository.name }}/
     steps:
       - name: Checkout
         uses: actions/checkout@v4
