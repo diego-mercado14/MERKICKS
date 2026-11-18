@@ -16,9 +16,9 @@ Abre `http://127.0.0.1:4173/MERKICKS/`. El servidor local sirve la carpeta gener
 
 ## GitHub Pages
 
-La URL pública prevista es `https://datarya-dev.github.io/MERKICKS/`. El workflow `.github/workflows/pages.yml` genera `dist/`, comprueba las 212 fichas y publica el artefacto en cada push a `main`.
+La URL pública es `https://diego-mercado14.github.io/MERKICKS/`. El workflow `.github/workflows/pages.yml` genera `dist/`, comprueba las 212 fichas y publica el artefacto en cada push a `main`.
 
-En **Settings → Pages → Build and deployment → Source**, selecciona **GitHub Actions** si GitHub aún no lo ha habilitado. El repositorio privado necesita un plan de GitHub que admita Pages privadas. No es necesario configurar una rama `gh-pages` ni publicar `dist/` en Git.
+En **Settings → Pages → Build and deployment → Source**, usa **GitHub Actions**. No es necesario configurar una rama `gh-pages` ni publicar `dist/` en Git.
 
 `SITE_ORIGIN` está definido en el workflow con la URL pública prevista; `site.config.json` contiene la misma URL como valor local. El generador crea canonical URLs, metadatos Open Graph y `sitemap.xml` bajo `/MERKICKS/`.
 
@@ -35,4 +35,4 @@ No publiques la carpeta `public/` directamente: contiene solo los recursos base.
 - `scripts/check.mjs`: comprueba rutas, recursos y enlaces.
 - `scripts/serve.mjs`: vista previa local.
 
-Para añadir o retirar productos, actualiza `data/catalog.json` y los WebP correspondientes. Antes de desplegar una versión que retire fichas, elimina `dist/` localmente y vuelve a construir para evitar rutas antiguas durante la revisión; Cloudflare parte de un checkout limpio.
+Para añadir o retirar productos, actualiza `data/catalog.json` y los WebP correspondientes. `npm run build` regenera `dist/` desde cero.

@@ -18,7 +18,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      SITE_ORIGIN: https://datarya-dev.github.io/MERKICKS/
+      SITE_ORIGIN: https://diego-mercado14.github.io/MERKICKS/
     steps:
       - name: Checkout
         uses: actions/checkout@v4

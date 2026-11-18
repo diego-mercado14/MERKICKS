@@ -22,3 +22,4 @@
 }
 
 @layer responsive { @media(max-width:370px) { .scene-nav button {width:30px} .scene-nav {gap:0} } }
+@layer responsive { @media(max-width:640px) { .catalog-heading h2 {font-size:clamp(43px,14vw,65px)} } }

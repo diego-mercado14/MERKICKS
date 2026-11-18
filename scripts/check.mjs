@@ -42,6 +42,7 @@ async function checkHtml(html,path,indexable=true){
 }
 
 assert.equal(base,'/MERKICKS/');
+assert.equal(origin,'https://diego-mercado14.github.io/MERKICKS');
 assert.equal(new URL(origin).pathname,base.slice(0,-1));
 assert.equal(new Set(products.map(p=>p.slug)).size,products.length);
 const home=await readFile('dist/index.html','utf8');
