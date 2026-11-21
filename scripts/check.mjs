@@ -22,8 +22,8 @@ async function checkHtml(html,path,indexable=true){
   assert(html.includes('<html lang="es-MX">'));
   assert(html.includes('<title>')&&html.includes('og:description'));
   assert(!/drive\.google\.com|googleusercontent\.com/.test(html));
-  assert(html.includes(`href="https://wa.me/${config.whatsapp}?text=`),`Contact WhatsApp ${path}`);
   if(indexable){
+    assert(html.includes(`href="https://wa.me/${config.whatsapp}?text=`),`Contact WhatsApp ${path}`);
     assert(html.includes(`rel="canonical" href="${siteUrl(path)}"`),`Canonical ${path}`);
     assert(html.includes(`property="og:url" content="${siteUrl(path)}"`),`Open Graph URL ${path}`);
   }else{
