@@ -22,6 +22,7 @@ async function checkHtml(html,path,indexable=true){
   assert(html.includes('<html lang="es-MX">'));
   assert(html.includes('<title>')&&html.includes('og:description'));
   assert(!/drive\.google\.com|googleusercontent\.com/.test(html));
+  assert(html.includes(`href="https://wa.me/${config.whatsapp}?text=`),`Contact WhatsApp ${path}`);
   if(indexable){
     assert(html.includes(`rel="canonical" href="${siteUrl(path)}"`),`Canonical ${path}`);
     assert(html.includes(`property="og:url" content="${siteUrl(path)}"`),`Open Graph URL ${path}`);
@@ -66,7 +67,7 @@ for(const product of products){
   const href=html.match(/href="(https:\/\/wa.me\/[^"]+)"[^>]*>Consultar por WhatsApp<\/a>/)?.[1];
   assert(href,`WhatsApp ${product.slug}`);
   const whatsapp=new URL(href);
-  assert.equal(whatsapp.pathname,'/5213314369060');
+  assert.equal(whatsapp.pathname,`/${config.whatsapp}`);
   assert.equal(whatsapp.searchParams.get('text'),`Hola, vi los ${product.name} en la página de MERKICKS. ¿Me puedes compartir precio y tallas disponibles?`);
   for(const image of product.images){
     assert(!imageIds.has(image.id));imageIds.add(image.id);
